@@ -12,43 +12,51 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, sans-serif;
   background: #101827;
   color: white;
   padding: 20px;
 }
+
 .container {
   max-width: 1100px;
   margin: auto;
 }
+
 h1 {
   text-align: center;
   margin: 15px 0 25px;
   color: #38bdf8;
 }
+
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 20px;
 }
+
 .stat {
   background: #1e293b;
   padding: 20px;
   border-radius: 12px;
   text-align: center;
 }
+
 .stat h3 {
   color: #94a3b8;
   font-size: 14px;
 }
+
 .stat p {
   color: #38bdf8;
   font-size: 25px;
   margin-top: 10px;
   font-weight: bold;
 }
+
 .search {
   width: 100%;
   padding: 13px;
@@ -59,36 +67,44 @@ h1 {
   color: white;
   font-size: 15px;
 }
+
 .table-box {
   overflow-x: auto;
   background: #1e293b;
   border-radius: 10px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
   min-width: 650px;
 }
+
 th, td {
   padding: 13px;
   border-bottom: 1px solid #334155;
   text-align: left;
 }
+
 th {
   background: #0f766e;
   color: white;
 }
+
 tr:hover {
   background: #334155;
 }
+
 .money {
   color: #4ade80;
   font-weight: bold;
 }
+
 .code {
   color: #facc15;
   font-family: monospace;
 }
+
 @media(max-width:600px) {
   .stats {
     grid-template-columns: 1fr;
@@ -98,23 +114,28 @@ tr:hover {
 </head>
 
 <body>
+
 <div class="container">
 
 <h1>💰 Work & Dollar Dashboard</h1>
 
 <div class="stats">
+
   <div class="stat">
     <h3>Total Members</h3>
     <p id="members">100</p>
   </div>
+
   <div class="stat">
     <h3>Total Work Count</h3>
-    <p id="totalWork">0</p>
+    <p id="totalWork">1000</p>
   </div>
+
   <div class="stat">
     <h3>Total Dollars</h3>
-    <p id="totalDollar">$0</p>
+    <p id="totalDollar">$0.00</p>
   </div>
+
 </div>
 
 <input
@@ -126,7 +147,9 @@ tr:hover {
 >
 
 <div class="table-box">
+
 <table>
+
 <thead>
 <tr>
   <th>SL</th>
@@ -137,13 +160,16 @@ tr:hover {
   <th>Code</th>
 </tr>
 </thead>
-<tbody id="tableData"></tbody>
-</table>
-</div>
 
+<tbody id="tableData"></tbody>
+
+</table>
+
+</div>
 </div>
 
 <script>
+
 const names = [
 "Alex","John","Michael","David","James",
 "Robert","Daniel","William","Joseph","Thomas",
@@ -152,29 +178,37 @@ const names = [
 ];
 
 const works = [
-"Data Entry","Web Design","Typing",
-"Graphic Design","Content Writing",
-"Research","SEO Work","Testing",
-"Development","Marketing"
+"Data Entry",
+"Web Design",
+"Typing",
+"Graphic Design",
+"Content Writing",
+"Research",
+"SEO Work",
+"Testing",
+"Development",
+"Marketing"
 ];
 
 const data = [];
 
 for (let i = 1; i <= 100; i++) {
+
   const count = (i % 10) + 1;
-  const dollar = count * 2;
 
   data.push({
     id: i,
     name: names[(i - 1) % names.length] + " " + i,
     work: works[(i - 1) % works.length],
     count: count,
-    dollar: dollar,
+    dollar: 0,
     code: "WORK" + String(i).padStart(4, "0")
   });
+
 }
 
 function renderTable() {
+
   const search = document
     .getElementById("search")
     .value.toLowerCase();
@@ -192,22 +226,23 @@ function renderTable() {
         <td>${item.name}</td>
         <td>${item.work}</td>
         <td>${item.count}</td>
-        <td class="money">$${item.dollar}</td>
+        <td class="money">$${item.dollar.toFixed(2)}</td>
         <td class="code">${item.code}</td>
       </tr>
     `).join("");
 
-  document.getElementById("members").textContent =
-    filtered.length;
+  // Fixed dashboard values
 
-  document.getElementById("totalWork").textContent =
-    filtered.reduce((sum, item) => sum + item.count, 0);
+  document.getElementById("members").textContent = "100";
 
-  document.getElementById("totalDollar").textContent =
-    "$" + filtered.reduce((sum, item) => sum + item.dollar, 0);
+  document.getElementById("totalWork").textContent = "1000";
+
+  document.getElementById("totalDollar").textContent = "$0.00";
+
 }
 
 renderTable();
+
 </script>
 
 </body>
